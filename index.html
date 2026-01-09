@@ -3,104 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Konsumsi Panitia</title>
+    <title>Sistem Konsumsi Pro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --primary: #2563eb; --secondary: #64748b; --success: #22c55e; }
-        body { background-color: #f1f5f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .navbar { background: white !important; border-bottom: 1px solid #e2e8f0; }
-        .navbar-brand { color: var(--primary) !important; font-weight: 700; }
-        .card { border: none; border-radius: 12px; transition: transform 0.2s; }
-        .stat-card { border-left: 4px solid var(--primary); }
-        .btn-primary { background-color: var(--primary); border: none; padding: 10px 20px; }
-        .table thead { background-color: #f8fafc; }
-        .badge-pending { background-color: #fef3c7; color: #92400e; }
-        .badge-success { background-color: #dcfce7; color: #166534; }
+        :root { --primary: #0d6efd; --success: #198754; --warning: #ffc107; }
+        body { background-color: #f8f9fa; font-size: 0.9rem; }
+        .card-stat { border: none; border-radius: 15px; color: white; }
+        .bg-gradient-blue { background: linear-gradient(45deg, #0d6efd, #00d4ff); }
+        .bg-gradient-red { background: linear-gradient(45deg, #dc3545, #ff5f6d); }
+        .bg-gradient-green { background: linear-gradient(45deg, #198754, #2ecc71); }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-light sticky-top mb-4">
-    <div class="container">
-        <span class="navbar-brand"><i class="bi bi- receipt-cutoff me-2"></i>MONITORING KONSUMSI</span>
-        <span class="text-muted small" id="current-date"></span>
+<nav class="navbar navbar-dark bg-dark mb-4 shadow">
+    <div class="container text-center">
+        <span class="navbar-brand fw-bold mx-auto">PANITIA KONSUMSI - DASHBOARD</span>
     </div>
 </nav>
 
 <div class="container">
     <div class="row mb-4">
-        <div class="col-md-4 mb-3">
-            <div class="card stat-card shadow-sm p-3 text-center">
-                <div class="text-muted small text-uppercase fw-bold">Total Pengeluaran</div>
-                <h3 class="mb-0 text-primary" id="total-dana">Rp 0</h3>
+        <div class="col-md-4 mb-2">
+            <div class="card card-stat bg-gradient-blue p-3 shadow-sm">
+                <small>Total Anggaran</small>
+                <h3 id="anggaran-total">Rp 5,000,000</h3> </div>
+        </div>
+        <div class="col-md-4 mb-2">
+            <div class="card card-stat bg-gradient-red p-3 shadow-sm">
+                <small>Dana Terpakai</small>
+                <h3 id="dana-terpakai">Rp 0</h3>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm p-3 text-center" style="border-left: 4px solid #f59e0b;">
-                <div class="text-muted small text-uppercase fw-bold">Nota Pending</div>
-                <h3 class="mb-0 text-warning" id="count-pending">0</h3>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm p-3 text-center" style="border-left: 4px solid #10b981;">
-                <div class="text-muted small text-uppercase fw-bold">Divalidasi</div>
-                <h3 class="mb-0 text-success" id="count-valid">0</h3>
+        <div class="col-md-4 mb-2">
+            <div class="card card-stat bg-gradient-green p-3 shadow-sm">
+                <small>Sisa Anggaran</small>
+                <h3 id="sisa-anggaran">Rp 0</h3>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-lg-4 mb-4">
-            <div class="card shadow-sm p-4">
-                <h5 class="fw-bold mb-3"><i class="bi bi-plus-circle me-2"></i>Input Pengeluaran</h5>
+            <div class="card shadow p-4">
+                <h6 class="fw-bold border-bottom pb-2 mb-3">FORM PEMESANAN & NOTA</h6>
                 <form id="notaForm">
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Nama Anggota Tim</label>
-                        <select id="nama" class="form-select" required>
-                            <option value="">-- Pilih Anggota --</option>
+                    <div class="mb-2">
+                        <label class="small fw-bold">No. Pemesanan / Invoice</label>
+                        <input type="text" id="noPesanan" class="form-control form-control-sm" placeholder="Contoh: KNS-001" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="small fw-bold">Tanggal Pesan</label>
+                        <input type="date" id="tglPesan" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="small fw-bold">Anggota Tim</label>
+                        <select id="nama" class="form-select form-select-sm" required>
                             <option value="Anggota 1">Fatahna</option>
                             <option value="Anggota 2">Aghea</option>
                             <option value="Anggota 3">Syauqi</option>
                             <option value="Anggota 4">Abdillah</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Kategori / Keperluan</label>
-                        <input type="text" id="keperluan" class="form-control" placeholder="Misal: Snack Sore Day 1" required>
+                    <div class="mb-2">
+                        <label class="small fw-bold">Item / Menu</label>
+                        <input type="text" id="keperluan" class="form-control form-control-sm" required>
+                    </div>
+                    <div class="mb-2">
+                        <label class="small fw-bold">Nominal (Rp)</label>
+                        <input type="number" id="nominal" class="form-control form-control-sm" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label small fw-bold">Nominal (Rp)</label>
-                        <div class="input-group">
-                            <span class="input-group-text">Rp</span>
-                            <input type="number" id="nominal" class="form-control" placeholder="0" required>
-                        </div>
+                        <label class="small fw-bold text-danger">Upload Foto Nota</label>
+                        <input type="file" id="fotoNota" class="form-control form-control-sm" accept="image/*" required>
                     </div>
-                    <button type="submit" id="btnKirim" class="btn btn-primary w-100 fw-bold">SIMPAN DATA</button>
+                    <button type="submit" id="btnKirim" class="btn btn-primary w-100 fw-bold">UPLOAD DATA</button>
                 </form>
             </div>
         </div>
 
         <div class="col-lg-8">
-            <div class="card shadow-sm p-0 overflow-hidden">
-                <div class="p-3 bg-white border-bottom d-flex justify-content-between align-items-center">
-                    <h5 class="fw-bold mb-0">Log Penggunaan Dana</h5>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="location.reload()"><i class="bi bi-arrow-clockwise"></i> Refresh</button>
-                </div>
+            <div class="card shadow border-0">
                 <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead>
-                            <tr class="small text-muted">
-                                <th class="ps-4">TANGGAL</th>
-                                <th>ANGGOTA</th>
-                                <th>KEPERLUAN</th>
-                                <th class="text-end">NOMINAL</th>
-                                <th class="text-center pe-4">STATUS</th>
+                    <table class="table table-hover align-middle mb-0" style="font-size: 0.85rem;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>No. Pesan</th>
+                                <th>Tgl Pesan</th>
+                                <th>Nama</th>
+                                <th>Nominal</th>
+                                <th>Nota</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody id="tabelBody">
-                            <tr><td colspan="5" class="text-center py-5 text-muted small">Sedang mengambil data...</td></tr>
-                        </tbody>
+                        <tbody id="tabelBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -109,66 +106,57 @@
 </div>
 
 <script>
-    // MASUKKAN URL GOOGLE SCRIPT ANDA DI SINI
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDbFMM0mUjdnpoHzFLOT0wMiBS7NFBAze-IB3iFrclfoludl_0T957J2fvLyWbtdOT/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydoOs30nfBj58Io_Q598Dacul7_0dAaTNUldWYtws7aCmNl7qbeRWaOibOSu1DCSAp/exec";
+    const BUDGET_AWAL = 178000000; // SILAKAN GANTI TOTAL BUDGET DI SINI
 
-    document.getElementById('current-date').innerText = new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-
-    // Kirim Data
+    // Proses Submit
     document.getElementById('notaForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btnKirim');
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Memproses...';
-        btn.disabled = true;
+        const fileInput = document.getElementById('fotoNota');
+        const file = fileInput.files[0];
+        const reader = new FileReader();
 
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            body: JSON.stringify({
+        btn.disabled = true;
+        btn.innerText = "Sedang Mengupload...";
+
+        reader.onload = function(event) {
+            const data = {
+                noPesanan: document.getElementById('noPesanan').value,
+                tglPesan: document.getElementById('tglPesan').value,
                 nama: document.getElementById('nama').value,
                 keperluan: document.getElementById('keperluan').value,
                 nominal: document.getElementById('nominal').value,
-                nota: "-"
-            })
-        }).then(res => {
-            alert('Sukses! Data telah tercatat di sistem.');
-            location.reload();
-        }).catch(err => {
-            alert('Gagal mengirim data!');
-            btn.disabled = false;
-        });
+                imageBlob: event.target.result
+            };
+
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(data) })
+            .then(() => { alert('Data dan Nota Berhasil Diunggah!'); location.reload(); });
+        };
+        reader.readAsDataURL(file);
     });
 
-    // Ambil Data & Hitung Statistik
-    fetch(SCRIPT_URL)
-        .then(res => res.json())
-        .then(data => {
-            let html = "";
-            let total = 0;
-            let pending = 0;
-            let valid = 0;
-
-            for(let i = 1; i < data.length; i++) {
-                const val = Number(data[i][3]);
-                total += val;
-                if(data[i][5] === "Pending") pending++; else valid++;
-
-                html += `<tr>
-                    <td class="ps-4 small text-muted">${new Date(data[i][0]).toLocaleDateString('id-ID')}</td>
-                    <td class="fw-bold">${data[i][1]}</td>
-                    <td>${data[i][2]}</td>
-                    <td class="text-end fw-bold text-primary">Rp ${val.toLocaleString('id-ID')}</td>
-                    <td class="text-center pe-4">
-                        <span class="badge ${data[i][5] === 'Pending' ? 'badge-pending' : 'badge-success'}">
-                            ${data[i][5]}
-                        </span>
-                    </td>
-                </tr>`;
-            }
-            document.getElementById('tabelBody').innerHTML = html;
-            document.getElementById('total-dana').innerText = "Rp " + total.toLocaleString('id-ID');
-            document.getElementById('count-pending').innerText = pending;
-            document.getElementById('count-valid').innerText = valid;
-        });
+    // Ambil Data & Hitung Sisa
+    fetch(SCRIPT_URL).then(res => res.json()).then(data => {
+        let html = "";
+        let terpakai = 0;
+        for(let i = 1; i < data.length; i++) {
+            const nom = Number(data[i][5]);
+            terpakai += nom;
+            html += `<tr>
+                <td><b>${data[i][1]}</b></td>
+                <td>${data[i][2]}</td>
+                <td>${data[i][3]}</td>
+                <td class="text-primary fw-bold">Rp ${nom.toLocaleString()}</td>
+                <td><a href="${data[i][6]}" target="_blank" class="btn btn-sm btn-outline-info p-0 px-1">Lihat</a></td>
+                <td><span class="badge ${data[i][7] == 'Pending' ? 'bg-warning' : 'bg-success'}">${data[i][7]}</span></td>
+            </tr>`;
+        }
+        document.getElementById('tabelBody').innerHTML = html;
+        document.getElementById('dana-terpakai').innerText = "Rp " + terpakai.toLocaleString();
+        document.getElementById('sisa-anggaran').innerText = "Rp " + (BUDGET_AWAL - terpakai).toLocaleString();
+        document.getElementById('anggaran-total').innerText = "Rp " + BUDGET_AWAL.toLocaleString();
+    });
 </script>
 </body>
 </html>
